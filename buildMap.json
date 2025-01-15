@@ -1,0 +1,77 @@
+{
+    "Spec": {
+        "System": {
+            "type": ["string","number","boolean","enum","list","dict"]
+        },
+        "input":{
+            "type": "dict",
+            "required": true,
+            "description": "inputs"
+        },
+        "input.<id>": {
+            "type": "dict",
+            "required": true,
+            "description": "The identifier"
+        },
+        "input.<id>.src": {
+            "type": "string",
+            "required": true,
+            "description": "The path to the file to be used as input."
+        },
+        "input.<id>.depends": {
+            "type": "dict",
+            "required": false,
+            "description": "The dependencies of the input."
+        },
+        "input.<id>.depends.<id>": {
+            "type": "string",
+            "required": true,
+            "description": "The template identifier of the dependency."
+        },
+        "output": {
+            "type": "dict",
+            "required": true,
+            "description": "outputs"
+        },
+        "output.dest": {
+            "type": "string",
+            "required": true,
+            "description": "output destination"
+        },
+        "output.exports": {
+            "type": "list",
+            "required": true,
+            "description": "output export information"
+        },
+        "output.exports.<item>.identifier": {
+            "type": "string",
+            "required": true,
+            "description": "exports identifier"
+        },
+        "output.exports.<item>.export": {
+            "type": "string",
+            "required": true,
+            "description": "exports file name"
+        }
+    },
+    "input": {
+        "git":{
+            "src": "plugin/git.prompt"
+        },
+        "Gemini 2.0 Flash Experimental": {
+            "src": "prompt/Gemini 2.0 Flash Experimental.prompt",
+            "depends": {
+                "git": "{{plugin|git}}"
+            }
+        }
+    },
+    "output": {
+        "dest": "dist",
+        "exports": [
+            {
+                "identifier": "Gemini 2.0 Flash Experimental",
+                "export": "Gemini 2.0 Flash Experimental.prompt"
+            }
+        ]
+    }
+}
